@@ -59,7 +59,7 @@ Copiá `API/.env.example` como `API/.env` y completá los valores:
 | `MONGO_URI` | Cadena de conexión a MongoDB | `mongodb+srv://usuario:pass@cluster0.xxxxx.mongodb.net/ls-gym` |
 | `JWT_SECRET` | Clave para firmar los tokens  | — |
 
-El archivo `.env` está en el `.gitignore` y no se sube al repositorio.
+
 
 ## Ejecución
 
