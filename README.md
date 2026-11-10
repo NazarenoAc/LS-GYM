@@ -57,7 +57,7 @@ Copiá `API/.env.example` como `API/.env` y completá los valores:
 |---|---|---|
 | `PORT` | Puerto del servidor | `3000` |
 | `MONGO_URI` | Cadena de conexión a MongoDB | `mongodb+srv://usuario:pass@cluster0.xxxxx.mongodb.net/ls-gym` |
-| `JWT_SECRET` | Clave para firmar los tokens (se usa en la etapa 2) | — |
+| `JWT_SECRET` | Clave para firmar los tokens  | — |
 
 El archivo `.env` está en el `.gitignore` y no se sube al repositorio.
 
