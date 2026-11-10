@@ -1,0 +1,484 @@
+{
+  "info": {
+    "_postman_id": "40f90e1c-f5d9-4ff3-8082-7f8b9f3e5452",
+    "name": "LS-GYM · Sesiones",
+    "description": "Pruebas del CRUD de sesiones de LS-GYM, con casos de error 400 y 404. Correr en orden.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 · Crear sesión",
+      "description": "Código esperado: 201. Copiá el _id de la respuesta en la variable sesionId.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"kinesiologia\",\n  \"profesional\": \"Lic. Pérez\",\n  \"sala\": \"Kinesio 1\",\n  \"fecha\": \"2026-11-12\",\n  \"horaInicio\": \"18:00\",\n  \"horaFin\": \"19:00\",\n  \"cupo\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "02 · Crear sesión superpuesta (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"kinesiologia\",\n  \"profesional\": \"Lic. Díaz\",\n  \"sala\": \"Kinesio 1\",\n  \"fecha\": \"2026-11-12\",\n  \"horaInicio\": \"18:30\",\n  \"horaFin\": \"19:30\",\n  \"cupo\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "03 · Crear sin campos obligatorios (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"funcional\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "04 · Crear con cupo negativo (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"funcional\",\n  \"profesional\": \"Lic. Pérez\",\n  \"sala\": \"Salón 2\",\n  \"fecha\": \"2026-11-12\",\n  \"horaInicio\": \"18:00\",\n  \"horaFin\": \"19:00\",\n  \"cupo\": -5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "05 · Crear kinesiología con cupo 5 (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"kinesiologia\",\n  \"profesional\": \"Lic. Pérez\",\n  \"sala\": \"Kinesio 2\",\n  \"fecha\": \"2026-11-12\",\n  \"horaInicio\": \"18:00\",\n  \"horaFin\": \"19:00\",\n  \"cupo\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "06 · Crear con hora de fin anterior (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"kinesiologia\",\n  \"profesional\": \"Lic. Pérez\",\n  \"sala\": \"Kinesio 2\",\n  \"fecha\": \"2026-11-12\",\n  \"horaInicio\": \"20:00\",\n  \"horaFin\": \"19:00\",\n  \"cupo\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "07 · Crear con tipo inválido (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipo\": \"yoga\",\n  \"profesional\": \"Lic. Pérez\",\n  \"sala\": \"Salón 3\",\n  \"fecha\": \"2026-11-12\",\n  \"horaInicio\": \"18:00\",\n  \"horaFin\": \"19:00\",\n  \"cupo\": 10\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "08 · Listar sesiones",
+      "description": "Código esperado: 200",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones"
+          ]
+        }
+      }
+    },
+    {
+      "name": "09 · Obtener sesión por id",
+      "description": "Código esperado: 200",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/{{sesionId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "{{sesionId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "10 · Obtener id inexistente (404)",
+      "description": "Código esperado: 404",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/507f1f77bcf86cd799439011",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "507f1f77bcf86cd799439011"
+          ]
+        }
+      }
+    },
+    {
+      "name": "11 · Obtener id mal formado (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/abc123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "abc123"
+          ]
+        }
+      }
+    },
+    {
+      "name": "12 · Actualizar sesión",
+      "description": "Código esperado: 200",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"profesional\": \"Lic. Gómez\",\n  \"horaFin\": \"19:30\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/{{sesionId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "{{sesionId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "13 · Actualizar con cupo inválido (400)",
+      "description": "Código esperado: 400",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cupo\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/{{sesionId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "{{sesionId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "14 · Actualizar id inexistente (404)",
+      "description": "Código esperado: 404",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cupo\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/507f1f77bcf86cd799439011",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "507f1f77bcf86cd799439011"
+          ]
+        }
+      }
+    },
+    {
+      "name": "15 · Eliminar sesión",
+      "description": "Código esperado: 200",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/{{sesionId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "{{sesionId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "16 · Eliminar sesión ya eliminada (404)",
+      "description": "Código esperado: 404",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/sesiones/{{sesionId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "sesiones",
+            "{{sesionId}}"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "sesionId",
+      "value": ""
+    }
+  ]
+}
